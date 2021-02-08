@@ -6,6 +6,10 @@ SET @json = data;
 SET @indx = 0;
 SET @keys = JSON_KEYS(@json);
 
+DROP TEMPORARY TABLE IF EXISTS table_1;
+CREATE TEMPORARY TABLE table_1(`key` varchar(255), `value` varchar(255));
+
+
 IF (JSON_VALID(@json) = 1) THEN
 WHILE counter < JSON_LENGTH(@json) DO
  
@@ -19,5 +23,7 @@ END IF;
 IF (JSON_VALID(@json) = 0) THEN
 SIGNAL SQLSTATE '45000' SET MYSQL_ERRNO=333, MESSAGE_TEXT='Invalid JSON object';
 END IF;
+
+Select * FROM table_1;
 
 END
